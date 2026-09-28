@@ -38,10 +38,10 @@ flowchart TD
     Gateway --> RateLimiter
     RateLimiter <-->|Atomic ZSET Check| Redis
     RateLimiter -->|Pass| ProxyDispatcher
-    RateLimiter -->|Exceeded (429)| Client
+    RateLimiter -->|"Exceeded (429)"| Client
     ProxyDispatcher -->|Forward Request| Upstream["Downstream / Upstream APIs"]
     ProxyDispatcher -->|Asynchronous Event| TelemetryProducer
-    TelemetryProducer -->|Topic: gateway-access-logs| Kafka
+    TelemetryProducer -->|"gateway-access-logs"| Kafka
     Kafka --> KafkaConsumer
     KafkaConsumer --> MongoRepo
 ```
